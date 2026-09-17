@@ -1,0 +1,573 @@
+/* ============================================
+   RegisterForm Styles — Mobile-first Responsive
+   Matches the design precisely with adaptive sizing.
+   ============================================ */
+
+.register-form {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 24px 18px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* --- Alerts --- */
+.register-form__alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  animation: fadeIn 0.3s ease;
+}
+
+.register-form__alert svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  width: 18px;
+  height: 18px;
+}
+
+.register-form__alert--success {
+  background: #E8F5E9;
+  border: 1px solid #A5D6A7;
+  color: #2E7D32;
+}
+
+.register-form__alert--error {
+  background: #FFEBEE;
+  border: 1px solid #EF9A9A;
+  color: #C62828;
+}
+
+/* --- Form Field --- */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-field__label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #C62828;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.form-field__optional-badge {
+  font-size: 8px;
+  font-weight: 600;
+  color: #9E9E9E;
+  background: #F5F5F5;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  padding: 1px 6px;
+  letter-spacing: 0.5px;
+}
+
+.form-field__input {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #212121;
+  padding: 12px 14px;
+  border: 1.5px solid #E57373;
+  border-radius: 12px;
+  background: #FFFFFF;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.form-field__input::placeholder {
+  color: #BDBDBD;
+  font-weight: 400;
+}
+
+.form-field__input:focus {
+  border-color: #E53935;
+  box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.1);
+}
+
+.form-field__input--error {
+  border-color: #E20D20;
+  border-width: 2px;
+  background: #FFFFFF;
+}
+
+/* --- Select --- */
+.form-field__select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.form-field__select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 40px;
+  cursor: pointer;
+  background: #FFFFFF;
+}
+
+.form-field__select-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* --- Textarea --- */
+.form-field__textarea-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.form-field__textarea {
+  resize: none;
+  overflow: hidden;
+  min-height: 90px;
+  line-height: 1.6;
+}
+
+.form-field__char-count {
+  display: block;
+  text-align: right;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  color: #757575;
+  margin-top: 4px;
+}
+
+/* --- Error --- */
+.form-field__error {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: #E53935;
+  font-weight: 500;
+  padding-left: 2px;
+  animation: fadeIn 0.2s ease;
+}
+
+.form-field__render-error {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: #E53935;
+  padding: 8px;
+}
+
+/* --- File Upload --- */
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.file-upload__input {
+  display: none;
+}
+
+.file-upload__area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 14px;
+  background: #FFEBEE;
+  border: 1.5px solid #E57373;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 56px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.file-upload__area:hover {
+  background: #FFCDD2;
+  border-color: #E53935;
+}
+
+.file-upload__area--dragging {
+  background: #FFCDD2;
+  border-color: #E53935;
+  border-style: dashed;
+}
+
+.file-upload__area--error {
+  border-color: #E53935;
+}
+
+.file-upload__area:focus-visible {
+  outline: 2px solid #E53935;
+  outline-offset: 2px;
+}
+
+.file-upload__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #FFFFFF;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.file-upload__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.file-upload__text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.file-upload__title {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #C62828;
+}
+
+.file-upload__subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  color: #757575;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* --- File Selected State --- */
+.file-upload__selected {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
+
+.file-upload__file-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #FFFFFF;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.file-upload__file-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.file-upload__file-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+  min-width: 0;
+}
+
+.file-upload__file-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #212121;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-upload__file-size {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  color: #757575;
+}
+
+.file-upload__remove-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.file-upload__remove-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.file-upload__remove-btn:hover {
+  background: rgba(229, 57, 53, 0.1);
+}
+
+/* --- Submit Button --- */
+.submit-button {
+  width: 100%;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #E53935 0%, #C62828 100%);
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-top: 4px;
+  box-shadow: 0 4px 14px rgba(229, 57, 53, 0.3);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #D32F2F 0%, #B71C1C 100%);
+  box-shadow: 0 6px 20px rgba(229, 57, 53, 0.4);
+  transform: translateY(-1px);
+}
+
+.submit-button:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px rgba(229, 57, 53, 0.3);
+}
+
+.submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.submit-button--loading {
+  opacity: 0.85;
+}
+
+.submit-button__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.submit-button__spinner {
+  animation: spin 1.2s linear infinite;
+  width: 18px;
+  height: 18px;
+}
+
+/* =============================================
+   Responsive Breakpoints
+   ============================================= */
+
+/* --- Small phones (< 360px) --- */
+@media (max-width: 359px) {
+  .register-form {
+    padding: 18px 14px;
+    border-radius: 16px;
+    gap: 14px;
+  }
+
+  .form-field__label {
+    font-size: 9px;
+  }
+
+  .form-field__input {
+    font-size: 13px;
+    padding: 10px 12px;
+    border-radius: 10px;
+  }
+
+  .form-field__textarea {
+    min-height: 80px;
+  }
+
+  .file-upload__area {
+    padding: 12px;
+    gap: 10px;
+    border-radius: 12px;
+  }
+
+  .file-upload__icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .file-upload__title {
+    font-size: 12px;
+  }
+
+  .file-upload__subtitle {
+    font-size: 9px;
+  }
+
+  .submit-button {
+    padding: 12px 18px;
+    font-size: 14px;
+    border-radius: 24px;
+  }
+
+  .register-form__alert {
+    padding: 10px 12px;
+    font-size: 11px;
+  }
+}
+
+/* --- Large phones / small tablets (480px+) --- */
+@media (min-width: 480px) {
+  .register-form {
+    padding: 28px 24px;
+    border-radius: 22px;
+    gap: 20px;
+  }
+
+  .form-field__label {
+    font-size: 11px;
+  }
+
+  .form-field__optional-badge {
+    font-size: 9px;
+    padding: 2px 8px;
+  }
+
+  .form-field__input {
+    font-size: 14px;
+    padding: 14px 16px;
+  }
+
+  .form-field__textarea {
+    min-height: 100px;
+  }
+
+  .file-upload__area {
+    padding: 16px 16px;
+    gap: 14px;
+  }
+
+  .file-upload__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+
+  .file-upload__title {
+    font-size: 14px;
+  }
+
+  .file-upload__subtitle {
+    font-size: 11px;
+  }
+
+  .submit-button {
+    padding: 16px 24px;
+    font-size: 16px;
+  }
+
+  .register-form__alert {
+    font-size: 13px;
+    padding: 14px 16px;
+  }
+}
+
+/* --- Tablets (768px+) --- */
+@media (min-width: 768px) {
+  .register-form {
+    padding: 36px 32px;
+    border-radius: 24px;
+    gap: 22px;
+    box-shadow: 0 8px 36px rgba(0, 0, 0, 0.07), 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .form-field {
+    gap: 8px;
+  }
+
+  .form-field__label {
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+
+  .form-field__input {
+    padding: 16px 18px;
+  }
+
+  .form-field__textarea {
+    min-height: 110px;
+  }
+
+  .form-field__char-count {
+    font-size: 11px;
+  }
+
+  .file-upload__area {
+    padding: 18px;
+  }
+
+  .submit-button {
+    padding: 18px 28px;
+    font-size: 16px;
+    margin-top: 8px;
+  }
+}
+
+/* --- Desktop (1024px+) --- */
+@media (min-width: 1024px) {
+  .register-form {
+    padding: 40px 36px;
+    gap: 24px;
+    max-width: 500px;
+  }
+
+  .form-field__label {
+    font-size: 12px;
+  }
+
+  .submit-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+  }
+}
+
+/* --- Animations --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
