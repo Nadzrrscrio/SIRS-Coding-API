@@ -1,53 +1,57 @@
 /**
  * Custom hook for register form state management.
- * Following Dependency Inversion Principle — components depend on this
- * abstraction rather than implementing logic directly.
- * Includes comprehensive exception handling.
+ * TypeScript implementation with strong typing and error handling.
  */
 
-import { useCallback, useState } from 'react';
-import { FORM_INITIAL_VALUES } from '../constants/formConfig';
-import { validateForm } from '../utils/validators';
+import { FormEvent, useCallback, useState } from 'react';
+import { FORM_INITIAL_VALUES, RegisterFormData } from '../constants/formConfig';
+import { FormErrors, validateForm } from '../utils/validators';
 
-/**
- * @returns {Object} Form state, handlers, and submission status
- */
-export function useRegisterForm() {
-  const [formData, setFormData] = useState({ ...FORM_INITIAL_VALUES });
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
+export type SubmitStatus = 'success' | 'error' | null;
+
+export interface UseRegisterFormReturn {
+  formData: RegisterFormData;
+  errors: FormErrors;
+  isSubmitting: boolean;
+  submitStatus: SubmitStatus;
+  handleChange: (fieldName: keyof RegisterFormData, value: string) => void;
+  handleFileChange: (file: File | null) => void;
+  handleFileRemove: () => void;
+  handleSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>;
+  resetForm: () => void;
+}
+
+export function useRegisterForm(): UseRegisterFormReturn {
+  const [formData, setFormData] = useState<RegisterFormData>({ ...FORM_INITIAL_VALUES });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>(null);
 
   /**
    * Handles changes for text/select/textarea fields.
-   * @param {string} fieldName - The form field name
-   * @param {string} value - The new value
    */
-  const handleChange = useCallback((fieldName, value) => {
+  const handleChange = useCallback((fieldName: keyof RegisterFormData, value: string) => {
     try {
       setFormData((prev) => ({
         ...prev,
         [fieldName]: value,
       }));
 
-      // Clear the error for this field when user starts typing
       setErrors((prev) => ({
         ...prev,
         [fieldName]: '',
       }));
 
-      // Reset submit status when user makes changes
       setSubmitStatus(null);
     } catch (error) {
-      console.error(`Error updating field "${fieldName}":`, error);
+      console.error(`Error updating field "${String(fieldName)}":`, error);
     }
   }, []);
 
   /**
    * Handles file selection/change.
-   * @param {File|null} file - The selected file
    */
-  const handleFileChange = useCallback((file) => {
+  const handleFileChange = useCallback((file: File | null) => {
     try {
       setFormData((prev) => ({
         ...prev,
@@ -94,19 +98,16 @@ export function useRegisterForm() {
 
   /**
    * Handles form submission with full validation and error handling.
-   * @param {Event} event - The form submit event
    */
   const handleSubmit = useCallback(
-    async (event) => {
+    async (event: FormEvent<HTMLFormElement>) => {
       try {
         event.preventDefault();
       } catch (error) {
-        // Event might not always be preventable
         console.warn('Could not prevent default:', error);
       }
 
       try {
-        // Validate all fields
         const { isValid, errors: validationErrors } = validateForm(formData);
 
         if (!isValid) {
@@ -118,18 +119,15 @@ export function useRegisterForm() {
         setIsSubmitting(true);
         setErrors({});
 
-        // Simulate API submission (replace with actual API call)
+        // Simulate API submission
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
-        // On success
         setSubmitStatus('success');
         resetForm();
-      } catch (error) {
-        // Handle network errors, API errors, etc.
+      } catch (error: any) {
         console.error('Form submission error:', error);
         setSubmitStatus('error');
 
-        // Set a generic submission error
         setErrors((prev) => ({
           ...prev,
           submit:

@@ -1,28 +1,19 @@
 /* ============================================
-   Global Styles — Daftar Akses API
-   Design tokens, base resets, and responsive layout.
-   Mobile-first approach.
+   Global Styles — Daftar Akses API (Figma Spec)
    ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
-/* --- CSS Variables (Hex only) --- */
+/* --- CSS Variables (Figma Hex Palette) --- */
 :root {
-  --primary-red: #E53935;
-  --primary-dark: #C62828;
-  --input-border: #E57373;
-  --input-border-focus: #E53935;
-  --bg-gradient-start: #FFFFFF;
-  --bg-gradient-end: #FFFFFF;
-  --upload-bg: #FFEBEE;
-  --text-gray: #757575;
-  --text-dark: #212121;
-  --text-muted: #9E9E9E;
-  --border-light: #E0E0E0;
-  --whatsapp-green: #25D366;
-  --white: #FFFFFF;
-  --error-red: #E53935;
-  --success-green: #2E7D32;
+  --primary-red: #E20D20;
+  --text-black: #000000;
+  --text-white: #FFFFFF;
+  --text-placeholder: #62748E;
+  --upload-bg: #FDEBEC;
+  --hero-desc: #6D7079;
+  --bg-ornament: #FDF6F7;
+  --border-light: #F0F0F0;
 }
 
 /* --- Reset --- */
@@ -44,16 +35,31 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 1rem;
   line-height: 1.5;
-  color: var(--text-dark);
-  background: var(--bg-gradient-start);
+  color: var(--text-black);
+  background: #FFFFFF;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
+/* --- Hide All Scrollbars (Slide bars) Completely --- */
+html,
+body,
+.home-register,
+* {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE & Edge */
+}
+
+::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Opera */
+  width: 0px !important;
+  height: 0px !important;
+}
+
 #root {
   min-height: 100vh;
-  min-height: 100dvh; /* dynamic viewport height for mobile browsers */
+  min-height: 100dvh;
   width: 100%;
   max-width: 100%;
   margin: 0;
@@ -62,7 +68,7 @@ body {
   text-align: left;
 }
 
-/* --- Home Register Page Layout (Mobile-first) --- */
+/* --- Home Register Page Layout (Mobile-first & RWD) --- */
 .home-register {
   position: relative;
   min-height: 100vh;
@@ -71,27 +77,83 @@ body {
   flex-direction: column;
   align-items: center;
   overflow-x: hidden;
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: #FFFFFF;
+  padding-bottom: 40px;
 }
 
+/* --- Background Circle Ornaments (#FDF6F7) --- */
+.bg-ornament {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--bg-ornament);
+  pointer-events: none;
+  z-index: 0; /* Strictly behind cards, headers, and footers */
+}
 
+.bg-ornament--top-left {
+  width: 280px;
+  height: 280px;
+  top: -60px;
+  left: -90px;
+}
 
-/* --- Hero Header (Mobile-first) --- */
+.bg-ornament--top-right {
+  width: 220px;
+  height: 220px;
+  top: 20px;
+  right: -80px;
+}
+
+.bg-ornament--middle-left {
+  width: 320px;
+  height: 320px;
+  top: 380px;
+  left: -140px;
+}
+
+.bg-ornament--middle-right {
+  width: 360px;
+  height: 360px;
+  top: 420px;
+  right: -140px;
+}
+
+.bg-ornament--bottom-left {
+  width: 240px;
+  height: 240px;
+  bottom: 80px;
+  left: -80px;
+}
+
+.bg-ornament--bottom-right {
+  width: 260px;
+  height: 260px;
+  bottom: -40px;
+  right: -60px;
+}
+
+/* --- Hero Header --- */
 .home-register__header {
+  position: relative;
+  z-index: 10;
   text-align: center;
-  padding: 8px 20px 20px;
+  padding: 24px 20px 20px;
   max-width: 100%;
   width: 100%;
+  margin: 0 auto;
 }
 
 .home-register__title {
   font-family: 'Inter', sans-serif;
-  font-size: 26px;
+  font-size: 32px;
   font-weight: 900;
-  color: var(--text-dark);
-  margin: 0 0 6px;
-  line-height: 1.2;
+  color: var(--text-black);
+  margin: 0 auto 10px auto;
+  line-height: 1.15;
   letter-spacing: -0.5px;
+  text-align: center;
+  display: block;
+  width: 100%;
 }
 
 .home-register__title--accent {
@@ -101,160 +163,113 @@ body {
 .home-register__subtitle {
   font-family: 'Inter', sans-serif;
   font-size: 13px;
-  color: var(--text-gray);
-  margin: 0;
-  line-height: 1.6;
+  color: var(--hero-desc);
+  margin: 0 auto;
+  max-width: 440px;
+  line-height: 1.55;
+  text-align: center;
 }
 
-/* --- Form Container (Mobile-first) --- */
+/* --- Form Container & Card --- */
 .home-register__form-container {
+  position: relative;
+  z-index: 10;
   display: flex;
   justify-content: center;
   padding: 0 16px 24px;
   width: 100%;
+  max-width: 450px;
+}
+
+.home-register__card {
+  background: #FFFFFF;
+  border-radius: 28px;
+  padding: 28px 24px;
+  width: 100%;
+  box-shadow: 0 12px 36px rgba(226, 13, 32, 0.05), 0 4px 16px rgba(0, 0, 0, 0.03);
+  border: 1px solid #F3F4F6;
+  transition: all 0.3s ease;
 }
 
 /* =============================================
-   Responsive Breakpoints
-   - xs: < 360px   (small phones)
-   - sm: 360-479px (standard phones)
-   - md: 480-767px (large phones / small tablets)
-   - lg: 768-1023px (tablets)
-   - xl: ≥ 1024px  (desktop)
+   Responsive Breakpoints (Figma Mobile 412px / Desktop 1440px)
    ============================================= */
 
-/* --- Small phones (< 360px) --- */
 @media (max-width: 359px) {
-  .home-register__header {
-    padding: 6px 14px 16px;
-  }
-
   .home-register__title {
-    font-size: 22px;
+    font-size: 26px;
   }
-
-  .home-register__subtitle {
-    font-size: 12px;
-  }
-
-  .home-register__form-container {
-    padding: 0 10px 20px;
+  .home-register__card {
+    padding: 20px 16px;
   }
 }
 
-/* --- Standard phones (360px - 479px) — default mobile, no changes needed --- */
-
-/* --- Large phones / small tablets (480px+) --- */
 @media (min-width: 480px) {
   .home-register__header {
-    padding: 12px 24px 24px;
-    max-width: 520px;
+    padding: 28px 24px 24px;
   }
-
   .home-register__title {
-    font-size: 30px;
+    font-size: 36px;
   }
-
   .home-register__subtitle {
     font-size: 14px;
   }
-
   .home-register__form-container {
-    padding: 0 24px 28px;
-    max-width: 520px;
+    max-width: 480px;
   }
-
-
 }
 
-/* --- Tablets (768px+) --- */
 @media (min-width: 768px) {
   .home-register__header {
-    padding: 20px 32px 32px;
-    max-width: 580px;
+    padding: 36px 32px 28px;
   }
-
-  .home-register__title {
-    font-size: 36px;
-    margin-bottom: 10px;
-  }
-
-  .home-register__subtitle {
-    font-size: 15px;
-  }
-
-  .home-register__form-container {
-    padding: 0 32px 36px;
-    max-width: 580px;
-  }
-
-
-}
-
-/* --- Desktop (1024px+) --- */
-@media (min-width: 1024px) {
-  .home-register {
-    padding-top: 8px;
-  }
-
-  .home-register__header {
-    padding: 24px 40px 36px;
-    max-width: 640px;
-  }
-
   .home-register__title {
     font-size: 40px;
   }
-
-  .home-register__subtitle {
-    font-size: 16px;
-  }
-
   .home-register__form-container {
-    padding: 0 40px 40px;
-    max-width: 600px;
+    max-width: 540px;
   }
-
-
+  .home-register__card {
+    padding: 36px 32px;
+  }
 }
 
-/* --- Selection / Focus Global --- */
+@media (min-width: 1024px) {
+  .home-register__header {
+    padding: 44px 40px 32px;
+  }
+  .home-register__title {
+    font-size: 44px;
+  }
+  .home-register__subtitle {
+    font-size: 15px;
+  }
+  .home-register__form-container {
+    max-width: 580px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .home-register__form-container {
+    max-width: 600px;
+  }
+  .bg-ornament--top-left {
+    width: 380px;
+    height: 380px;
+  }
+  .bg-ornament--middle-right {
+    width: 440px;
+    height: 440px;
+  }
+}
+
+/* Touch targets */
 ::selection {
-  background: rgba(229, 57, 53, 0.15);
-  color: var(--text-dark);
+  background: rgba(226, 13, 32, 0.15);
+  color: var(--text-black);
 }
 
 :focus-visible {
   outline: 2px solid var(--primary-red);
   outline-offset: 2px;
-}
-
-/* --- Scrollbar (Webkit) --- */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #E0E0E0;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #BDBDBD;
-}
-
-/* --- Touch-friendly defaults for mobile --- */
-@media (hover: none) and (pointer: coarse) {
-  /* Ensure minimum touch target sizes (48px per WCAG) */
-  input,
-  select,
-  textarea,
-  button,
-  a {
-    min-height: 44px;
-  }
 }

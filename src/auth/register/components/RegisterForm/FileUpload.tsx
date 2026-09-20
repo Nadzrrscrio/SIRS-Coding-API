@@ -1,33 +1,29 @@
 /**
  * FileUpload component.
  * Single Responsibility: handles file selection, drag-and-drop, and displays
- * selected file info or upload prompt.
+ * selected file info or upload prompt according to Figma specifications.
  */
 
-import { useCallback, useRef, useState } from 'react';
+import { ChangeEvent, DragEvent, KeyboardEvent, MouseEvent, useCallback, useRef, useState } from 'react';
 import { FILE_UPLOAD_CONFIG } from '../../constants/formConfig';
 import { validateFile } from '../../utils/validators';
 
-/**
- * @param {Object} props
- * @param {File|null} props.file - Currently selected file
- * @param {Function} props.onFileChange - Handler when file is selected
- * @param {Function} props.onFileRemove - Handler to remove file
- * @param {string} [props.error] - Error message from parent
- */
-export default function FileUpload({ file, onFileChange, onFileRemove, error = '' }) {
-  const fileInputRef = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [localError, setLocalError] = useState('');
+export interface FileUploadProps {
+  file: File | null;
+  onFileChange: (file: File) => void;
+  onFileRemove: () => void;
+  error?: string;
+}
+
+export default function FileUpload({ file, onFileChange, onFileRemove, error = '' }: FileUploadProps) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [localError, setLocalError] = useState<string>('');
 
   const displayError = error || localError;
 
-  /**
-   * Processes a file with validation and error handling.
-   * @param {File} selectedFile
-   */
   const processFile = useCallback(
-    (selectedFile) => {
+    (selectedFile: File | undefined | null) => {
       try {
         if (!selectedFile) {
           return;
@@ -49,11 +45,8 @@ export default function FileUpload({ file, onFileChange, onFileRemove, error = '
     [onFileChange]
   );
 
-  /**
-   * Handles the file input change event.
-   */
   const handleFileInputChange = useCallback(
-    (event) => {
+    (event: ChangeEvent<HTMLInputElement>) => {
       try {
         const selectedFile = event.target.files?.[0];
         processFile(selectedFile);
@@ -65,9 +58,6 @@ export default function FileUpload({ file, onFileChange, onFileRemove, error = '
     [processFile]
   );
 
-  /**
-   * Handles click on the upload area.
-   */
   const handleClick = useCallback(() => {
     try {
       fileInputRef.current?.click();
@@ -76,10 +66,7 @@ export default function FileUpload({ file, onFileChange, onFileRemove, error = '
     }
   }, []);
 
-  /**
-   * Handles drag over event.
-   */
-  const handleDragOver = useCallback((event) => {
+  const handleDragOver = useCallback((event: DragEvent<HTMLDivElement>) => {
     try {
       event.preventDefault();
       event.stopPropagation();
@@ -89,10 +76,7 @@ export default function FileUpload({ file, onFileChange, onFileRemove, error = '
     }
   }, []);
 
-  /**
-   * Handles drag leave event.
-   */
-  const handleDragLeave = useCallback((event) => {
+  const handleDragLeave = useCallback((event: DragEvent<HTMLDivElement>) => {
     try {
       event.preventDefault();
       event.stopPropagation();
@@ -102,11 +86,8 @@ export default function FileUpload({ file, onFileChange, onFileRemove, error = '
     }
   }, []);
 
-  /**
-   * Handles file drop event.
-   */
   const handleDrop = useCallback(
-    (event) => {
+    (event: DragEvent<HTMLDivElement>) => {
       try {
         event.preventDefault();
         event.stopPropagation();
@@ -122,17 +103,13 @@ export default function FileUpload({ file, onFileChange, onFileRemove, error = '
     [processFile]
   );
 
-  /**
-   * Handles removing the selected file.
-   */
   const handleRemove = useCallback(
-    (event) => {
+    (event: MouseEvent<HTMLButtonElement>) => {
       try {
         event.stopPropagation();
         setLocalError('');
         onFileRemove();
 
-        // Reset the file input value
         if (fileInputRef.current) {
           fileInputRef.current.value = '';
         }
@@ -156,7 +133,7 @@ export default function FileUpload({ file, onFileChange, onFileRemove, error = '
         role="button"
         tabIndex={0}
         aria-label="Unggah dokumen verifikasi"
-        onKeyDown={(e) => {
+        onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             handleClick();
@@ -176,8 +153,8 @@ export default function FileUpload({ file, onFileChange, onFileRemove, error = '
 
         {file ? (
           <div className="file-upload__selected">
-            <div className="file-upload__file-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E53935" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <div className="file-upload__icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                 <polyline points="14 2 14 8 20 8" />
               </svg>
@@ -194,7 +171,7 @@ export default function FileUpload({ file, onFileChange, onFileRemove, error = '
               onClick={handleRemove}
               aria-label="Hapus file"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E53935" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E20D20" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
@@ -202,8 +179,8 @@ export default function FileUpload({ file, onFileChange, onFileRemove, error = '
           </div>
         ) : (
           <div className="file-upload__prompt">
-            <div className="file-upload__icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E53935" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <div className="file-upload__icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="17 8 12 3 7 8" />
                 <line x1="12" y1="3" x2="12" y2="15" />

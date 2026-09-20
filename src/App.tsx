@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import './App.css'
+import HomeRegister from './auth/register'
 
 const modules = [
   { number: '01', icon: '▣', title: 'Keluhan', standard: 'SNOMED CT', description: 'Dari teks bebas Bahasa Indonesia menjadi keluhan SNOMED CT resmi dengan resolusi penuh terhadap adaptasi produksi.' },
@@ -12,6 +14,12 @@ const modules = [
 const features = ['25 koding / hari', 'Semua modul', 'Via halaman demo']
 
 function App() {
+  const [currentView, setCurrentView] = useState<'landing' | 'register'>('landing')
+
+  if (currentView === 'register') {
+    return <HomeRegister onNavigate={(view) => setCurrentView(view)} />
+  }
+
   return (
     <main className="landing-page">
       <header className="site-header">
@@ -22,7 +30,19 @@ function App() {
         <div className="eyebrow">Standar FHIR · SNOMED CT · ICD-10 · ICD-9 · IN-CBG</div>
         <h1>API koding klinis untuk <em>rumah sakit, klinik &amp; developer</em></h1>
         <p className="hero-copy">Ubah keluhan pasien menjadi kode medis standar secara otomatis. Memakai pipeline gabungan aturan, machine learning, dan AI langsung siap integrasi ke SIMRS Anda.</p>
-        <div className="hero-actions"><a className="button button-primary" href="#pricing">Daftar API <span>→</span></a><a className="button button-secondary" href="#modules">Dokumentasi API</a></div>
+        <div className="hero-actions">
+          <a
+            className="button button-primary"
+            href="#register"
+            onClick={(e) => {
+              e.preventDefault()
+              setCurrentView('register')
+            }}
+          >
+            Daftar API <span>→</span>
+          </a>
+          <a className="button button-secondary" href="#modules">Dokumentasi API</a>
+        </div>
       </section>
       <section className="modules-section" id="modules">
         <div className="section-label">FITUR</div>
@@ -35,7 +55,18 @@ function App() {
         <p className="section-copy">Pilih paket yang paling sesuai dengan skala dan kebutuhan fasilitas kesehatan Anda.</p>
         <div className="plans">
           <article className="plan-card"><h3>Ujicoba</h3><strong className="plan-price">Gratis</strong><ul>{features.map((feature) => <li key={feature}>{feature}</li>)}</ul><a className="button button-primary" href="https://wa.me/6280000000000">Ujicoba Gratis <span>→</span></a></article>
-          <article className="plan-card featured-plan"><div className="popular-tag">★ Paling Ideal</div><h3>Starter</h3><strong className="plan-price">Minta penawaran</strong><ul>{['API key resmi', 'Kuota sesuai kebutuhan', 'Dokumentasi & dukungan'].map((feature) => <li key={feature}>{feature}</li>)}</ul><a className="button button-secondary" href="https://wa.me/6280000000000">Daftar Sekarang <span>→</span></a></article>
+          <article className="plan-card featured-plan"><div className="popular-tag">★ Paling Ideal</div><h3>Starter</h3><strong className="plan-price">Minta penawaran</strong><ul>{['API key resmi', 'Kuota sesuai kebutuhan', 'Dokumentasi & dukungan'].map((feature) => <li key={feature}>{feature}</li>)}</ul>
+            <a
+              className="button button-secondary"
+              href="#register"
+              onClick={(e) => {
+                e.preventDefault()
+                setCurrentView('register')
+              }}
+            >
+              Daftar Sekarang <span>→</span>
+            </a>
+          </article>
         </div>
       </section>
       <a className="whatsapp-button" href="https://wa.me/6280000000000" aria-label="Hubungi kami melalui WhatsApp">⌕</a>
