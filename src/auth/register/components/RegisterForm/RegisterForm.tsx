@@ -1,8 +1,8 @@
 /**
  * RegisterForm component.
  * Acts as the orchestrator that composes FormField, FileUpload, and SubmitButton.
- * Delegates state management to useRegisterForm hook (DIP).
- * Delegates validation to validators.js (SRP).
+ * Delegates state management to useRegisterForm hook.
+ * Delegates validation to validators.ts.
  */
 
 import { ORGANIZATION_TYPES, TEXTAREA_CONFIG } from '../../constants/formConfig';
@@ -40,7 +40,7 @@ export default function RegisterForm() {
       {/* Error Message */}
       {submitStatus === 'error' && errors.submit && (
         <div className="register-form__alert register-form__alert--error" role="alert">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C62828" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E20D20" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="12" r="10" />
             <line x1="15" y1="9" x2="9" y2="15" />
             <line x1="9" y1="9" x2="15" y2="15" />

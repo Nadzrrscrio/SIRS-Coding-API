@@ -2,17 +2,31 @@
  * Pure validation functions.
  * Each function validates a single field and returns an error message string.
  * Returns empty string ('') if valid.
- * Following Single Responsibility Principle — only handles validation logic.
  */
 
-import { FILE_UPLOAD_CONFIG, TEXTAREA_CONFIG } from '../constants/formConfig';
+import { FILE_UPLOAD_CONFIG, RegisterFormData, TEXTAREA_CONFIG } from '../constants/formConfig';
+
+export interface FormErrors {
+  nama?: string;
+  email?: string;
+  jenisOrganisasi?: string;
+  namaOrganisasi?: string;
+  situsWeb?: string;
+  alasan?: string;
+  dokumen?: string;
+  submit?: string;
+  [key: string]: string | undefined;
+}
+
+export interface ValidationResult {
+  isValid: boolean;
+  errors: FormErrors;
+}
 
 /**
  * Validates the name field.
- * @param {string} value
- * @returns {string} Error message or empty string
  */
-export function validateName(value) {
+export function validateName(value: string): string {
   if (!value || value.trim().length === 0) {
     return 'Nama wajib diisi.';
   }
@@ -24,10 +38,8 @@ export function validateName(value) {
 
 /**
  * Validates the email field.
- * @param {string} value
- * @returns {string} Error message or empty string
  */
-export function validateEmail(value) {
+export function validateEmail(value: string): string {
   if (!value || value.trim().length === 0) {
     return 'Email wajib diisi.';
   }
@@ -40,10 +52,8 @@ export function validateEmail(value) {
 
 /**
  * Validates the organization type selection.
- * @param {string} value
- * @returns {string} Error message or empty string
  */
-export function validateOrganizationType(value) {
+export function validateOrganizationType(value: string): string {
   if (!value || value.trim().length === 0) {
     return 'Jenis organisasi wajib dipilih.';
   }
@@ -52,10 +62,8 @@ export function validateOrganizationType(value) {
 
 /**
  * Validates the organization name field.
- * @param {string} value
- * @returns {string} Error message or empty string
  */
-export function validateOrganizationName(value) {
+export function validateOrganizationName(value: string): string {
   if (!value || value.trim().length === 0) {
     return 'Nama organisasi wajib diisi.';
   }
@@ -64,10 +72,8 @@ export function validateOrganizationName(value) {
 
 /**
  * Validates the website URL field (optional).
- * @param {string} value
- * @returns {string} Error message or empty string
  */
-export function validateWebsite(value) {
+export function validateWebsite(value: string): string {
   if (!value || value.trim().length === 0) {
     return ''; // Optional field
   }
@@ -81,10 +87,8 @@ export function validateWebsite(value) {
 
 /**
  * Validates the reason/integration plan textarea.
- * @param {string} value
- * @returns {string} Error message or empty string
  */
-export function validateReason(value) {
+export function validateReason(value: string): string {
   if (!value || value.trim().length === 0) {
     return 'Alasan pakai wajib diisi.';
   }
@@ -96,10 +100,8 @@ export function validateReason(value) {
 
 /**
  * Validates the uploaded document file.
- * @param {File|null} file
- * @returns {string} Error message or empty string
  */
-export function validateFile(file) {
+export function validateFile(file: File | null): string {
   if (!file) {
     return 'Dokumen verifikasi wajib diunggah.';
   }
@@ -114,11 +116,9 @@ export function validateFile(file) {
 
 /**
  * Validates the entire form data object.
- * @param {Object} formData - The form data to validate
- * @returns {{ isValid: boolean, errors: Object }} Validation result
  */
-export function validateForm(formData) {
-  const errors = {
+export function validateForm(formData: RegisterFormData): ValidationResult {
+  const errors: FormErrors = {
     nama: validateName(formData.nama),
     email: validateEmail(formData.email),
     jenisOrganisasi: validateOrganizationType(formData.jenisOrganisasi),

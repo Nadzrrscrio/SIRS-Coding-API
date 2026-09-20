@@ -1,5 +1,11 @@
+/* ============================================
+   Footer Component Styles
+   ============================================ */
+
 .footer {
-  padding: 12px 20px 28px;
+  position: relative;
+  z-index: 30; /* Ensure footer stays above background ornaments (z-index: 0) */
+  padding: 16px 20px 28px;
   text-align: center;
   width: 100%;
 }
@@ -7,7 +13,7 @@
 .footer__text {
   font-family: 'Inter', sans-serif;
   font-size: 11px;
-  color: #9E9E9E;
+  color: #6D7079;
   margin: 0;
   line-height: 1.5;
 }
