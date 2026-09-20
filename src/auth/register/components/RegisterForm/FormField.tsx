@@ -1,28 +1,27 @@
 /**
  * FormField component.
  * Single Responsibility: renders a single form field (input, select, or textarea)
- * with label, error state, and optional badge.
- *
- * Open/Closed Principle: supports multiple field types via `type` prop
- * without modifying internal logic.
+ * with label, error state, and optional badge according to Figma specs.
  */
 
-import { useEffect, useRef } from 'react';
-import { TEXTAREA_CONFIG } from '../../constants/formConfig';
+import { ChangeEvent, useEffect, useRef } from 'react';
+import { OrganizationOption, TEXTAREA_CONFIG } from '../../constants/formConfig';
 
-/**
- * @param {Object} props
- * @param {string} props.label - The label text (displayed uppercase)
- * @param {string} props.id - Unique identifier for the field
- * @param {'text'|'email'|'select'|'textarea'} props.type - Field type
- * @param {string} props.placeholder - Placeholder text
- * @param {string} props.value - Current value
- * @param {Function} props.onChange - Change handler (receives value string)
- * @param {string} [props.error] - Error message to display
- * @param {boolean} [props.optional] - Whether to show "OPSIONAL" badge
- * @param {number} [props.maxLength] - Max character length (for textarea)
- * @param {Array} [props.options] - Options for select type
- */
+export type FieldType = 'text' | 'email' | 'select' | 'textarea';
+
+export interface FormFieldProps {
+  label: string;
+  id: string;
+  type?: FieldType;
+  placeholder?: string;
+  value?: string;
+  onChange: (value: string) => void;
+  error?: string;
+  optional?: boolean;
+  maxLength?: number;
+  options?: OrganizationOption[];
+}
+
 export default function FormField({
   label,
   id,
@@ -34,8 +33,8 @@ export default function FormField({
   optional = false,
   maxLength,
   options = [],
-}) {
-  const textareaRef = useRef(null);
+}: FormFieldProps) {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (type === 'textarea' && textareaRef.current) {
@@ -44,14 +43,10 @@ export default function FormField({
     }
   }, [value, type]);
 
-  /**
-   * Handles input change events with exception handling.
-   */
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     try {
       const newValue = event.target.value;
 
-      // Enforce maxLength for textarea
       if (type === 'textarea' && maxLength && newValue.length > maxLength) {
         return;
       }
@@ -62,9 +57,6 @@ export default function FormField({
     }
   };
 
-  /**
-   * Renders the appropriate input element based on type.
-   */
   const renderField = () => {
     const baseClassName = `form-field__input ${error ? 'form-field__input--error' : ''}`;
 
@@ -89,12 +81,12 @@ export default function FormField({
               </select>
               <svg
                 className="form-field__select-icon"
-                width="20"
-                height="20"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="#9E9E9E"
-                strokeWidth="2"
+                stroke="#E20D20"
+                strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
@@ -144,7 +136,7 @@ export default function FormField({
   return (
     <div className="form-field" id={`field-${id}`}>
       <label className="form-field__label" htmlFor={id}>
-        {label}
+        <span>{label}</span>
         {optional && <span className="form-field__optional-badge">OPSIONAL</span>}
       </label>
       {renderField()}

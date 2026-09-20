@@ -3,12 +3,12 @@
  * Single Responsibility: renders the submit button with loading state.
  */
 
-/**
- * @param {Object} props
- * @param {boolean} props.isSubmitting - Whether the form is currently submitting
- * @param {string} [props.label] - Button label text
- */
-export default function SubmitButton({ isSubmitting = false, label = 'Kirim Pendaftaran' }) {
+export interface SubmitButtonProps {
+  isSubmitting?: boolean;
+  label?: string;
+}
+
+export default function SubmitButton({ isSubmitting = false, label = 'Kirim Pendaftaran' }: SubmitButtonProps) {
   return (
     <button
       type="submit"
