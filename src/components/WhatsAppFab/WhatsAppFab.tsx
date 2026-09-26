@@ -3,15 +3,14 @@
  * Single Responsibility: renders the floating WhatsApp action button.
  */
 
-import { WHATSAPP_CONFIG } from '../../pages/Register/constants/formConfig';
+import { WHATSAPP_CONFIG } from '../../auth/register/constants/formConfig';
 import './WhatsAppFab.css';
 
 export default function WhatsAppFab() {
   /**
    * Builds the WhatsApp URL with error handling.
-   * @returns {string} WhatsApp URL
    */
-  const getWhatsAppUrl = () => {
+  const getWhatsAppUrl = (): string => {
     try {
       const encodedMessage = encodeURIComponent(WHATSAPP_CONFIG.message);
       return `https://wa.me/${WHATSAPP_CONFIG.phoneNumber}?text=${encodedMessage}`;

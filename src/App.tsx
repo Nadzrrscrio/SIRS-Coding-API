@@ -10,6 +10,12 @@ const modules = [
 const features = ['25 koding / hari', 'Semua modul', 'Via halaman demo']
 
 function App() {
+  const [currentView, setCurrentView] = useState<'landing' | 'register'>('landing')
+
+  if (currentView === 'register') {
+    return <HomeRegister onNavigate={(view) => setCurrentView(view)} />
+  }
+
   return (
     <>
       <style>{`
