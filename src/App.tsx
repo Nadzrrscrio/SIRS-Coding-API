@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import HomeRegister from './auth/register'
+
 const modules = [
   { number: '01', icon: '▣', title: 'Keluhan', standard: 'SNOMED CT', description: 'Dari teks bebas Bahasa Indonesia menjadi keluhan SNOMED CT resmi dengan resolusi penuh terhadap adaptasi produksi.' },
   { number: '02', icon: '♧', title: 'Diagnosis', standard: 'ICD-10', description: 'Diagnosis dokter dipetakan otomatis ke kode ICD-10 diagnosis resmi.' },
