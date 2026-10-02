@@ -4,6 +4,7 @@
  * with background circle ornaments and responsive layout.
  */
 
+import '../../index.css';
 import Footer from '../../components/Footer/Footer';
 import Navbar from '../../components/Navbar/Navbar';
 import RegisterForm from './components/RegisterForm/RegisterForm';

@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import HomeRegister from './auth/register'
+
+const SimulasiPage = lazy(() => import('./admin/simulasi'))
 
 const modules = [
   { number: '01', icon: '▣', title: 'Keluhan', standard: 'SNOMED CT', description: 'Dari teks bebas Bahasa Indonesia menjadi keluhan SNOMED CT resmi dengan resolusi penuh terhadap adaptasi produksi.' },
@@ -12,11 +14,52 @@ const modules = [
 
 const features = ['25 koding / hari', 'Semua modul', 'Via halaman demo']
 
+function getInitialView(): 'landing' | 'register' | 'simulasi' {
+  const path = window.location.pathname.toLowerCase()
+  const hash = window.location.hash.toLowerCase()
+  if (path.includes('/admin/simulasi') || hash.includes('/admin/simulasi') || hash === '#simulasi') {
+    return 'simulasi'
+  }
+  if (
+    path.includes('/auth/register') ||
+    hash.includes('/auth/register') ||
+    path.includes('/register') ||
+    hash === '#register' ||
+    hash === '#demo'
+  ) {
+    return 'register'
+  }
+  return 'landing'
+}
+
 function App() {
-  const [currentView, setCurrentView] = useState<'landing' | 'register'>('landing')
+  const [currentView, setCurrentView] = useState<'landing' | 'register' | 'simulasi'>(getInitialView)
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentView(getInitialView())
+    }
+    window.addEventListener('popstate', handlePopState)
+    window.addEventListener('hashchange', handlePopState)
+    return () => {
+      window.removeEventListener('popstate', handlePopState)
+      window.removeEventListener('hashchange', handlePopState)
+    }
+  }, [])
+
+  if (currentView === 'simulasi') {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <SimulasiPage
+          onNavigateRegister={() => setCurrentView('register')}
+          onNavigateLanding={() => setCurrentView('landing')}
+        />
+      </Suspense>
+    )
+  }
 
   if (currentView === 'register') {
-    return <HomeRegister onNavigate={(view) => setCurrentView(view)} />
+    return <HomeRegister onNavigate={(view) => setCurrentView(view as 'landing' | 'register')} />
   }
 
   return (

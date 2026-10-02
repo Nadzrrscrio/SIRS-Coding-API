@@ -1,0 +1,883 @@
+/* ============================================
+   SIRS Admin Simulasi Page Styles (Strictly Scoped)
+   Inherits design pattern from Register Page without leaking styles
+   ============================================ */
+
+/* --- Hide All Scrollbars Completely within Simulasi --- */
+.simulasi-page,
+.simulasi-page *,
+.simulasi-nav,
+.simulasi-table-responsive,
+.simulasi-modal-card {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.simulasi-page *::-webkit-scrollbar,
+.simulasi-nav::-webkit-scrollbar,
+.simulasi-table-responsive::-webkit-scrollbar,
+.simulasi-modal-card::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+}
+
+/* Page Shell & Ornaments */
+.simulasi-page {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  background: #FFFFFF;
+  color: var(--text-black, #000000);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  padding-bottom: 60px;
+}
+
+.simulasi-page .simulasi-container {
+  position: relative;
+  z-index: 10;
+  width: min(1280px, calc(100% - 24px));
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .simulasi-page .simulasi-container {
+    width: min(1280px, calc(100% - 48px));
+    gap: 32px;
+  }
+}
+
+/* Background Circle Ornaments (#FDF6F7) */
+.simulasi-page .bg-ornament {
+  position: absolute;
+  border-radius: 50%;
+  background: #FDF6F7;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.simulasi-page .bg-ornament--top-left {
+  width: 280px;
+  height: 280px;
+  top: -80px;
+  left: -90px;
+}
+
+.simulasi-page .bg-ornament--top-right {
+  width: 240px;
+  height: 240px;
+  top: 40px;
+  right: -80px;
+}
+
+.simulasi-page .bg-ornament--middle-left {
+  width: 320px;
+  height: 320px;
+  top: 480px;
+  left: -120px;
+}
+
+.simulasi-page .bg-ornament--bottom-right {
+  width: 280px;
+  height: 280px;
+  bottom: 20px;
+  right: -60px;
+}
+
+@media (min-width: 1024px) {
+  .simulasi-page .bg-ornament--top-left {
+    width: 380px;
+    height: 380px;
+    top: -100px;
+    left: -120px;
+  }
+  .simulasi-page .bg-ornament--middle-left {
+    width: 420px;
+    height: 420px;
+  }
+}
+
+/* --- Header Component --- */
+.simulasi-page .simulasi-header {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 16px;
+}
+
+.simulasi-page .simulasi-header__top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #F0F0F0;
+  border-radius: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  backdrop-filter: blur(8px);
+}
+
+.simulasi-page .simulasi-brand {
+  display: flex;
+  align-items: center;
+}
+
+.simulasi-page .simulasi-brand__logo {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: #E20D20;
+  letter-spacing: -1px;
+}
+
+.simulasi-page .simulasi-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+}
+
+.simulasi-page .simulasi-nav__item {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6D7079;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+@media (min-width: 600px) {
+  .simulasi-page .simulasi-nav__item {
+    font-size: 13px;
+    padding: 6px 16px;
+    gap: 8px;
+  }
+}
+
+.simulasi-page .simulasi-nav__item:hover {
+  color: #E20D20;
+  background: #FFF1F2;
+}
+
+.simulasi-page .simulasi-nav__item--active {
+  color: #FFFFFF;
+  background: #E20D20;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(226, 13, 32, 0.25);
+}
+
+.simulasi-page .simulasi-nav__item--active:hover {
+  color: #FFFFFF;
+  background: #C90B1B;
+}
+
+/* Header Hero */
+.simulasi-page .simulasi-header__hero {
+  text-align: left;
+  padding: 6px 4px 0;
+}
+
+.simulasi-page .simulasi-header__eyebrow {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  color: #E20D20;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.simulasi-page .simulasi-header__title {
+  font-size: 26px;
+  font-weight: 900;
+  color: #000000;
+  margin: 0 0 6px;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+
+.simulasi-page .simulasi-header__title--accent {
+  color: #E20D20;
+}
+
+.simulasi-page .simulasi-header__subtitle {
+  font-size: 13px;
+  color: #6D7079;
+  margin: 0;
+  max-width: 680px;
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .simulasi-page .simulasi-header__title {
+    font-size: 34px;
+  }
+  .simulasi-page .simulasi-header__subtitle {
+    font-size: 14px;
+  }
+}
+
+/* --- Standard Card Pattern --- */
+.simulasi-page .simulasi-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 18px 20px;
+  border: 1px solid #F3F4F6;
+  box-shadow: 0 12px 36px rgba(226, 13, 32, 0.04), 0 4px 16px rgba(0, 0, 0, 0.02);
+  transition: all 0.25s ease;
+}
+
+@media (min-width: 768px) {
+  .simulasi-page .simulasi-card {
+    border-radius: 24px;
+    padding: 24px 28px;
+  }
+}
+
+.simulasi-page .simulasi-card:hover {
+  border-color: #F0D0D4;
+}
+
+/* --- Rekap Cards Section --- */
+.simulasi-page .rekap-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.simulasi-page .rekap-section__title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.simulasi-page .rekap-section__title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #000000;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.simulasi-page .rekap-section__timestamp {
+  font-size: 11px;
+  color: #6D7079;
+}
+
+.simulasi-page .rekap-section__refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #E20D20;
+  background: #FFFFFF;
+  border: 1.5px solid #E20D20;
+  border-radius: 20px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.simulasi-page .rekap-section__refresh-btn:hover:not(:disabled) {
+  background: #E20D20;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(226, 13, 32, 0.2);
+}
+
+.simulasi-page .rekap-section__refresh-btn--loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.simulasi-page .refresh-indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #E20D20;
+  border-top-color: transparent;
+  border-radius: 50%;
+}
+
+.simulasi-page .refresh-indicator--spin {
+  animation: spin 0.8s linear infinite;
+}
+
+/* Rekap Metric Grid */
+.simulasi-page .rekap-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .simulasi-page .rekap-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .simulasi-page .rekap-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.simulasi-page .metric-card {
+  background: #FAFAFB;
+  border: 1.5px solid #F0F0F0;
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.simulasi-page .metric-card:hover {
+  background: #FFFFFF;
+  border-color: #E20D20;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(226, 13, 32, 0.08);
+}
+
+.simulasi-page .metric-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.simulasi-page .metric-card__label {
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #6D7079;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.simulasi-page .metric-card__body {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.simulasi-page .metric-card__value {
+  font-size: 20px;
+  font-weight: 900;
+  color: #000000;
+  letter-spacing: -0.5px;
+  font-family: 'Inter', sans-serif;
+}
+
+@media (min-width: 768px) {
+  .simulasi-page .metric-card__value {
+    font-size: 22px;
+  }
+}
+
+.simulasi-page .metric-card__unit {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6D7079;
+}
+
+/* --- Patient Table Section --- */
+.simulasi-page .patient-section__header {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 900px) {
+  .simulasi-page .patient-section__header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.simulasi-page .patient-section__title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.simulasi-page .patient-section__title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #000000;
+  margin: 0;
+  letter-spacing: -0.4px;
+}
+
+.simulasi-page .patient-section__count-badge {
+  font-size: 11px;
+  font-weight: 800;
+  color: #E20D20;
+  background: #FDEBEC;
+  border-radius: 12px;
+  padding: 3px 10px;
+}
+
+.simulasi-page .patient-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.simulasi-page .patient-controls__search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 200px;
+  flex: 1;
+}
+
+.simulasi-page .simulasi-search-clear-btn {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #6D7079;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px;
+}
+
+/* Inputs & Selects */
+.simulasi-page .simulasi-input {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #000000;
+  background: #FFFFFF;
+  border: 1.5px solid #E20D20;
+  border-radius: 14px;
+  padding: 9px 14px;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.simulasi-page .simulasi-input--search {
+  padding-left: 14px;
+  padding-right: 48px;
+}
+
+.simulasi-page .simulasi-input:focus {
+  border-color: #E20D20;
+  box-shadow: 0 0 0 3px rgba(226, 13, 32, 0.15);
+}
+
+.simulasi-page .simulasi-select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.simulasi-page .simulasi-select {
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #000000;
+  background: #FFFFFF;
+  border: 1.5px solid #E20D20;
+  border-radius: 14px;
+  padding: 9px 14px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.simulasi-page .simulasi-select:focus {
+  box-shadow: 0 0 0 3px rgba(226, 13, 32, 0.15);
+}
+
+.simulasi-page .simulasi-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 14px;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.simulasi-page .simulasi-button--primary {
+  color: #FFFFFF;
+  background: #E20D20;
+  box-shadow: 0 6px 16px rgba(226, 13, 32, 0.3);
+}
+
+.simulasi-page .simulasi-button--primary:hover:not(:disabled) {
+  background: #C90B1B;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(226, 13, 32, 0.4);
+}
+
+.simulasi-page .simulasi-button--secondary {
+  color: #E20D20;
+  background: #FFFFFF;
+  border: 1.5px solid #E20D20;
+}
+
+.simulasi-page .simulasi-button--secondary:hover:not(:disabled) {
+  background: #FDEBEC;
+}
+
+/* Table Design */
+.simulasi-page .simulasi-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid #F0F0F0;
+}
+
+.simulasi-page .simulasi-patient-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+  min-width: 650px;
+}
+
+.simulasi-page .simulasi-patient-table th {
+  background: #FAFAFB;
+  color: #6D7079;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  padding: 12px 14px;
+  border-bottom: 1.5px solid #F0F0F0;
+}
+
+.simulasi-page .simulasi-patient-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #F3F4F6;
+  vertical-align: middle;
+  transition: background 0.15s ease;
+}
+
+.simulasi-page .simulasi-patient-table__row:hover td {
+  background: #FFFDFD;
+}
+
+.simulasi-page .simulasi-patient-table__row:last-child td {
+  border-bottom: none;
+}
+
+.simulasi-page .simulasi-font-mono {
+  font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+}
+
+.simulasi-page .simulasi-font-bold {
+  font-weight: 700;
+}
+
+.simulasi-page .simulasi-font-semibold {
+  font-weight: 600;
+}
+
+.simulasi-page .simulasi-text-black {
+  color: #000000;
+}
+
+.simulasi-page .simulasi-text-muted {
+  color: #6D7079;
+}
+
+.simulasi-page .simulasi-text-right {
+  text-align: right;
+}
+
+.simulasi-page .simulasi-diagnosis-cell {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #282C35;
+}
+
+/* Badges & Pills */
+.simulasi-page .simulasi-jalur-pill {
+  font-size: 12px;
+  font-weight: 500;
+  color: #282C35;
+}
+
+.simulasi-page .simulasi-triase-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.simulasi-page .simulasi-triase-badge--sangat-berat {
+  color: #D32F2F;
+  background: #FDEBEC;
+  border: 1px solid #FFCDD2;
+}
+
+.simulasi-page .simulasi-triase-badge--berat {
+  color: #2E7D32;
+  background: #E8F5E9;
+  border: 1px solid #A5D6A7;
+}
+
+.simulasi-page .simulasi-triase-badge--sedang {
+  color: #F57F17;
+  background: #FFF8E1;
+  border: 1px solid #FFE082;
+}
+
+.simulasi-page .simulasi-triase-badge--ringan {
+  color: #1976D2;
+  background: #E3F2FD;
+  border: 1px solid #90CAF9;
+}
+
+/* Code Badges */
+.simulasi-page .simulasi-code-badge {
+  display: inline-block;
+  font-family: SFMono-Regular, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 8px;
+  letter-spacing: 0.3px;
+}
+
+.simulasi-page .simulasi-code-badge--icd10 {
+  color: #3730A3;
+  background: #EEF2FF;
+  border: 1px solid #C7D2FE;
+}
+
+.simulasi-page .simulasi-code-badge--incbg {
+  color: #92400E;
+  background: #FEF3C7;
+  border: 1px solid #FDE68A;
+}
+
+/* Empty State */
+.simulasi-page .simulasi-empty-state {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.simulasi-page .simulasi-empty-state__title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #000000;
+  margin: 0 0 6px;
+}
+
+.simulasi-page .simulasi-empty-state__desc {
+  font-size: 13px;
+  color: #6D7079;
+  max-width: 400px;
+  margin: 0 auto 16px;
+}
+
+/* --- Modals & Overlay (Scoped) --- */
+.simulasi-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.simulasi-modal-card {
+  background: #FFFFFF;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  border: 1px solid #F0F0F0;
+  animation: slideUp 0.25s ease-out;
+}
+
+.simulasi-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #F0F0F0;
+  margin-bottom: 18px;
+}
+
+.simulasi-modal-eyebrow {
+  font-size: 10px;
+  font-weight: 800;
+  color: #E20D20;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.simulasi-modal-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: #000000;
+  margin: 2px 0 0;
+}
+
+.simulasi-modal-close-btn {
+  background: #FAFAFB;
+  border: 1px solid #E5E7EB;
+  padding: 6px 14px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #6D7079;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.simulasi-modal-close-btn:hover {
+  background: #FDEBEC;
+  color: #E20D20;
+  border-color: #FFCDD2;
+}
+
+.simulasi-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.simulasi-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid #F0F0F0;
+  margin-top: 6px;
+}
+
+.simulasi-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 500px) {
+  .simulasi-form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.simulasi-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.simulasi-form-field__label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #E20D20;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.simulasi-alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.simulasi-alert--error {
+  background: #FDEBEC;
+  border: 1px solid #FFCDD2;
+  color: #E20D20;
+}
+
+/* Error Boundary Screen */
+.simulasi-error-container {
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+.simulasi-error-card {
+  background: #FFFFFF;
+  border: 1.5px solid #FFCDD2;
+  border-radius: 24px;
+  padding: 32px;
+  text-align: center;
+  max-width: 440px;
+  box-shadow: 0 12px 36px rgba(226, 13, 32, 0.08);
+}
+
+.simulasi-error-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #E20D20;
+  margin: 0 0 8px;
+}
+
+.simulasi-error-message {
+  font-size: 13px;
+  color: #6D7079;
+  margin: 0 0 20px;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
