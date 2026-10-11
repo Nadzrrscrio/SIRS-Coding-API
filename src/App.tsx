@@ -3,6 +3,7 @@ import HomeRegister from './auth/register'
 
 const SimulasiPage = lazy(() => import('./admin/simulasi'))
 const AdminLoginPage = lazy(() => import('./admin/login'))
+const VendorPage = lazy(() => import('./admin/vendor'))
 
 const modules = [
   { number: '01', icon: '▣', title: 'Keluhan', standard: 'SNOMED CT', description: 'Dari teks bebas Bahasa Indonesia menjadi keluhan SNOMED CT resmi dengan resolusi penuh terhadap adaptasi produksi.' },
@@ -40,6 +41,11 @@ function App() {
     const hash = window.location.hash.toLowerCase()
     return path.includes('/admin/login') || hash.includes('/admin/login') || hash === '#login' || hash === '#admin-login'
   })
+  const [isVendorView, setIsVendorView] = useState<boolean>(() => {
+    const path = window.location.pathname.toLowerCase()
+    const hash = window.location.hash.toLowerCase()
+    return path.includes('/admin/vendor') || hash.includes('/admin/vendor') || hash === '#vendor' || hash === '#manajemen' || hash === '#acc-register'
+  })
 
   useEffect(() => {
     const handlePopState = () => {
@@ -67,6 +73,20 @@ function App() {
     }
   }, [])
 
+  useEffect(() => {
+    const handleVendorCheck = () => {
+      const path = window.location.pathname.toLowerCase()
+      const hash = window.location.hash.toLowerCase()
+      setIsVendorView(path.includes('/admin/vendor') || hash.includes('/admin/vendor') || hash === '#vendor' || hash === '#manajemen' || hash === '#acc-register')
+    }
+    window.addEventListener('popstate', handleVendorCheck)
+    window.addEventListener('hashchange', handleVendorCheck)
+    return () => {
+      window.removeEventListener('popstate', handleVendorCheck)
+      window.removeEventListener('hashchange', handleVendorCheck)
+    }
+  }, [])
+
   if (isAdminLogin) {
     return (
       <Suspense fallback={<div>Loading...</div>}>
@@ -81,6 +101,27 @@ function App() {
           }}
           onNavigateLanding={() => {
             setIsAdminLogin(false)
+            setCurrentView('landing')
+          }}
+        />
+      </Suspense>
+    )
+  }
+
+  if (isVendorView) {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <VendorPage
+          onNavigateSimulasi={() => {
+            setIsVendorView(false)
+            setCurrentView('simulasi')
+          }}
+          onNavigateLogin={() => {
+            setIsVendorView(false)
+            setIsAdminLogin(true)
+          }}
+          onNavigateLanding={() => {
+            setIsVendorView(false)
             setCurrentView('landing')
           }}
         />

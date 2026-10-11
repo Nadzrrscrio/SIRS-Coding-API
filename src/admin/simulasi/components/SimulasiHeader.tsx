@@ -25,7 +25,11 @@ export const SimulasiHeader: React.FC<SimulasiHeaderProps> = ({
       window.location.hash = '#login';
       return;
     }
-    if (key === 'Manajemen' || key === 'Dokumentasi' || key === 'Redoc') {
+    if (key === 'Manajemen') {
+      window.location.hash = '#manajemen';
+      return;
+    }
+    if (key === 'Dokumentasi' || key === 'Redoc') {
       // Tombol kosong tanpa fungsi perpindahan
       return;
     }
