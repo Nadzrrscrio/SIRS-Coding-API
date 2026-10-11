@@ -2,6 +2,7 @@ import { useState, useEffect, lazy, Suspense } from 'react'
 import HomeRegister from './auth/register'
 
 const SimulasiPage = lazy(() => import('./admin/simulasi'))
+const AdminLoginPage = lazy(() => import('./admin/login'))
 
 const modules = [
   { number: '01', icon: '▣', title: 'Keluhan', standard: 'SNOMED CT', description: 'Dari teks bebas Bahasa Indonesia menjadi keluhan SNOMED CT resmi dengan resolusi penuh terhadap adaptasi produksi.' },
@@ -34,6 +35,11 @@ function getInitialView(): 'landing' | 'register' | 'simulasi' {
 
 function App() {
   const [currentView, setCurrentView] = useState<'landing' | 'register' | 'simulasi'>(getInitialView)
+  const [isAdminLogin, setIsAdminLogin] = useState<boolean>(() => {
+    const path = window.location.pathname.toLowerCase()
+    const hash = window.location.hash.toLowerCase()
+    return path.includes('/admin/login') || hash.includes('/admin/login') || hash === '#login' || hash === '#admin-login'
+  })
 
   useEffect(() => {
     const handlePopState = () => {
@@ -46,6 +52,41 @@ function App() {
       window.removeEventListener('hashchange', handlePopState)
     }
   }, [])
+
+  useEffect(() => {
+    const handleLoginCheck = () => {
+      const path = window.location.pathname.toLowerCase()
+      const hash = window.location.hash.toLowerCase()
+      setIsAdminLogin(path.includes('/admin/login') || hash.includes('/admin/login') || hash === '#login' || hash === '#admin-login')
+    }
+    window.addEventListener('popstate', handleLoginCheck)
+    window.addEventListener('hashchange', handleLoginCheck)
+    return () => {
+      window.removeEventListener('popstate', handleLoginCheck)
+      window.removeEventListener('hashchange', handleLoginCheck)
+    }
+  }, [])
+
+  if (isAdminLogin) {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <AdminLoginPage
+          onLoginSuccess={() => {
+            setIsAdminLogin(false)
+            setCurrentView('simulasi')
+          }}
+          onNavigateSimulasi={() => {
+            setIsAdminLogin(false)
+            setCurrentView('simulasi')
+          }}
+          onNavigateLanding={() => {
+            setIsAdminLogin(false)
+            setCurrentView('landing')
+          }}
+        />
+      </Suspense>
+    )
+  }
 
   if (currentView === 'simulasi') {
     return (

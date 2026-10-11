@@ -22,12 +22,11 @@ export const SimulasiHeader: React.FC<SimulasiHeaderProps> = ({
   const handleNavClick = (key: string, e: React.MouseEvent) => {
     e.preventDefault();
     if (key === 'Keluar') {
-      if (onNavigateLanding) {
-        onNavigateLanding();
-      } else {
-        window.location.hash = '';
-        window.location.pathname = '/';
-      }
+      window.location.hash = '#login';
+      return;
+    }
+    if (key === 'Manajemen' || key === 'Dokumentasi' || key === 'Redoc') {
+      // Tombol kosong tanpa fungsi perpindahan
       return;
     }
     if (onTabChange) {

@@ -1,0 +1,763 @@
+/* ==========================================================================
+   Admin Login Page Styles (Strictly Scoped: .admin-login-page)
+   Adheres to Register Page Design Patterns:
+   - Colors: Primary Red #E20D20, Ornaments #FDF6F7, Dark Text #000000, Muted #6D7079
+   - Typography: 'Inter', uppercase labels, bold weights
+   - Corner Radius: 28px card, 14px inputs/buttons, 9999px pills
+   - Shadows: 0 12px 36px rgba(226, 13, 32, 0.05), button 0 10px 22px rgba(226, 13, 32, 0.35)
+   - RWD & Adaptive Responsiveness
+   ========================================================================== */
+
+/* --- Scrollbar Suppression --- */
+.admin-login-page,
+.admin-login-page * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.admin-login-page *::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+}
+
+/* --- Page Root Shell --- */
+.admin-login-page {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #FFFFFF;
+  color: #000000;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  padding-bottom: 40px;
+  box-sizing: border-box;
+}
+
+/* --- Background Circle Ornaments (#FDF6F7) --- */
+.admin-login-page .bg-ornament {
+  position: absolute;
+  border-radius: 50%;
+  background: #FDF6F7;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.admin-login-page .bg-ornament--top-left {
+  width: 280px;
+  height: 280px;
+  top: -60px;
+  left: -90px;
+}
+
+.admin-login-page .bg-ornament--top-right {
+  width: 240px;
+  height: 240px;
+  top: 30px;
+  right: -80px;
+}
+
+.admin-login-page .bg-ornament--middle-left {
+  width: 320px;
+  height: 320px;
+  top: 400px;
+  left: -140px;
+}
+
+.admin-login-page .bg-ornament--bottom-right {
+  width: 280px;
+  height: 280px;
+  bottom: -40px;
+  right: -70px;
+}
+
+@media (min-width: 1024px) {
+  .admin-login-page .bg-ornament--top-left {
+    width: 380px;
+    height: 380px;
+    top: -90px;
+    left: -110px;
+  }
+  .admin-login-page .bg-ornament--bottom-right {
+    width: 360px;
+    height: 360px;
+  }
+}
+
+/* ==========================================================================
+   Top Header (SIRS Coding Service + Nav Pills: Simulasi, Dokumentasi, Redoc)
+   ========================================================================== */
+
+.admin-login-header {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  padding: 16px 20px 24px;
+  box-sizing: border-box;
+}
+
+.admin-login-header__container {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+@media (min-width: 768px) {
+  .admin-login-header {
+    padding: 24px 32px 32px;
+  }
+  .admin-login-header__container {
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+  }
+}
+
+.admin-login-header__brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-login-header__brand-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-login-header__umm-logo {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: #E20D20;
+  background: #FFF5F6;
+  border: 1.5px solid #FFCDD2;
+  border-radius: 9999px;
+  padding: 4px 12px;
+  cursor: pointer;
+  letter-spacing: -0.5px;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.admin-login-header__umm-logo:hover {
+  background: #E20D20;
+  color: #FFFFFF;
+  border-color: #E20D20;
+  transform: scale(1.04);
+}
+
+.admin-login-header__title {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #000000;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+@media (min-width: 640px) {
+  .admin-login-header__title {
+    font-size: 24px;
+  }
+}
+
+.admin-login-header__title--accent {
+  color: #E20D20;
+}
+
+.admin-login-header__subtitle {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #6D7079;
+  line-height: 1.5;
+  max-width: 600px;
+}
+
+/* --- Navigation Pills (Simulasi, Dokumentasi, Redoc) --- */
+.admin-login-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.admin-login-nav-pill {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #62748E;
+  background: #FFFFFF;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 9999px;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.admin-login-nav-pill:hover,
+.admin-login-nav-pill:focus-visible {
+  color: #FFFFFF;
+  background: #E20D20;
+  border-color: #E20D20;
+  box-shadow: 0 4px 14px rgba(226, 13, 32, 0.28);
+  transform: translateY(-1px);
+}
+
+.admin-login-nav-pill:active {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Main Content Container & Center Card
+   ========================================================================== */
+
+.admin-login-main {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 16px 30px;
+  box-sizing: border-box;
+}
+
+.admin-login-card {
+  width: 100%;
+  max-width: 460px;
+  background: #FFFFFF;
+  border-radius: 28px;
+  padding: 32px 28px;
+  box-shadow: 0 12px 36px rgba(226, 13, 32, 0.05), 0 4px 16px rgba(0, 0, 0, 0.03);
+  border: 1px solid #F3F4F6;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+@media (min-width: 480px) {
+  .admin-login-card {
+    padding: 38px 34px;
+  }
+}
+
+/* --- Card Header --- */
+.admin-login-card__header {
+  text-align: left;
+  margin-bottom: 22px;
+}
+
+.admin-login-card__badge-row {
+  margin-bottom: 8px;
+}
+
+.admin-login-card__role-pill {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  color: #E20D20;
+  background: #FFF0F2;
+  border: 1px solid #FFCDD2;
+  border-radius: 9999px;
+  padding: 3px 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  display: inline-block;
+}
+
+.admin-login-card__title {
+  margin: 0 0 4px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 26px;
+  font-weight: 900;
+  color: #000000;
+  letter-spacing: -0.6px;
+  line-height: 1.2;
+}
+
+.admin-login-card__subtitle {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #6D7079;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   Alerts & Notifications
+   ========================================================================== */
+
+.admin-login-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 18px;
+  animation: slideDown 0.25s ease-out;
+  box-sizing: border-box;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.admin-login-alert--success {
+  background: #E8F5E9;
+  border: 1px solid #A5D6A7;
+  color: #2E7D32;
+}
+
+.admin-login-alert--error {
+  background: #FDEBEC;
+  border: 1px solid #FFCDD2;
+  color: #E20D20;
+}
+
+.admin-login-alert--warning {
+  background: #FEF3C7;
+  border: 1px solid #FDE68A;
+  color: #92400E;
+}
+
+.admin-login-alert__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  margin-top: 1px;
+}
+
+.admin-login-alert__content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.admin-login-alert__text {
+  line-height: 1.4;
+}
+
+.admin-login-alert__badge {
+  font-weight: 700;
+  font-size: 11px;
+  background: rgba(0, 0, 0, 0.08);
+  padding: 2px 7px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.admin-login-alert__close {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.admin-login-alert__close:hover {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Form Fields
+   ========================================================================== */
+
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+}
+
+.admin-login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  position: relative;
+}
+
+.admin-login-field__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #E20D20;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.admin-login-field__input-wrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.admin-login-field__icon {
+  position: absolute;
+  left: 14px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.85;
+}
+
+.admin-login-field__input {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000000;
+  background: #FFFFFF;
+  border: 1.5px solid #E20D20;
+  border-radius: 14px;
+  padding: 12px 42px 12px 42px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  box-sizing: border-box;
+}
+
+.admin-login-field__input::placeholder {
+  color: #62748E;
+  opacity: 0.9;
+}
+
+.admin-login-field__input:focus {
+  border-color: #E20D20;
+  box-shadow: 0 0 0 3px rgba(226, 13, 32, 0.15);
+}
+
+.admin-login-field__input--error {
+  border-color: #D32F2F;
+  background: #FFF8F8;
+}
+
+.admin-login-field__toggle-pw {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+
+.admin-login-field__toggle-pw:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.admin-login-field__error {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: #E20D20;
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+/* --- Remember Me Option --- */
+.admin-login-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -4px;
+}
+
+.admin-login-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #4B5563;
+  cursor: pointer;
+  user-select: none;
+}
+
+.admin-login-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: #E20D20;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   Submit Button
+   ========================================================================== */
+
+.admin-login-submit-btn {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: #E20D20;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 20px;
+  cursor: pointer;
+  margin-top: 4px;
+  box-shadow: 0 10px 22px rgba(226, 13, 32, 0.35);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.admin-login-submit-btn:hover:not(:disabled) {
+  background: #C90B1B;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(226, 13, 32, 0.45);
+}
+
+.admin-login-submit-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.admin-login-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.admin-login-submit-btn__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.admin-login-spinner {
+  animation: adminSpin 0.8s linear infinite;
+}
+
+@keyframes adminSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   Environment Hint Box ("SIRS_ADMIN_TOKEN di .env")
+   ========================================================================== */
+
+.admin-login-env-hint {
+  background: #FFF5F6;
+  border: 1px solid #FFCDD2;
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-top: 6px;
+  text-align: center;
+}
+
+.admin-login-env-hint__text {
+  margin: 0;
+  font-size: 12px;
+  color: #4B5563;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.admin-login-env-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #E20D20;
+  background: rgba(226, 13, 32, 0.08);
+  padding: 1px 5px;
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   Error Fallback (ErrorBoundary)
+   ========================================================================== */
+
+.admin-login-error-fallback {
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.admin-login-error-card {
+  max-width: 480px;
+  background: #FFFFFF;
+  border-radius: 28px;
+  padding: 36px 30px;
+  box-shadow: 0 12px 36px rgba(226, 13, 32, 0.08);
+  border: 1.5px solid #FFCDD2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.admin-login-error-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #FFF0F2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-login-error-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #000000;
+}
+
+.admin-login-error-desc {
+  margin: 0;
+  font-size: 13px;
+  color: #6D7079;
+  line-height: 1.5;
+}
+
+.admin-login-error-code {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: #E20D20;
+  background: #FFF0F2;
+  padding: 6px 10px;
+  border-radius: 8px;
+  word-break: break-all;
+}
+
+.admin-login-error-actions {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.admin-login-btn {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-login-btn--primary {
+  background: #E20D20;
+  color: #FFFFFF;
+  border: none;
+}
+
+.admin-login-btn--primary:hover {
+  background: #C90B1B;
+}
+
+.admin-login-btn--secondary {
+  background: #FFFFFF;
+  color: #62748E;
+  border: 1.5px solid #E5E7EB;
+}
+
+.admin-login-btn--secondary:hover {
+  border-color: #E20D20;
+  color: #E20D20;
+}
+
+/* ==========================================================================
+   Responsive Adaptations & Breakpoints (RWD)
+   ========================================================================== */
+
+@media (max-width: 359px) {
+  .admin-login-header {
+    padding: 12px 14px 16px;
+  }
+  .admin-login-header__title {
+    font-size: 18px;
+  }
+  .admin-login-header__nav {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .admin-login-nav-pill {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  .admin-login-card {
+    padding: 24px 16px;
+    border-radius: 20px;
+  }
+  .admin-login-card__title {
+    font-size: 22px;
+  }
+  .admin-login-field__input {
+    font-size: 13px;
+    padding: 10px 36px 10px 36px;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .admin-login-header__container {
+    gap: 14px;
+  }
+  .admin-login-header__nav {
+    justify-content: flex-start;
+  }
+}
+
+@media (min-width: 1440px) {
+  .admin-login-card {
+    max-width: 480px;
+    padding: 42px 38px;
+  }
+}
