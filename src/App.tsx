@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import HomeRegister from './auth/register'
+import DetailPage from './admin/detail'
 
 const modules = [
   { number: '01', icon: '▣', title: 'Keluhan', standard: 'SNOMED CT', description: 'Dari teks bebas Bahasa Indonesia menjadi keluhan SNOMED CT resmi dengan resolusi penuh terhadap adaptasi produksi.' },
@@ -14,17 +15,57 @@ const modules = [
 const features = ['25 koding / hari', 'Semua modul', 'Via halaman demo']
 
 function App() {
-  const [currentView, setCurrentView] = useState<'landing' | 'register'>('landing')
+  const [currentView, setCurrentView] = useState<'landing' | 'register' | 'detail'>('landing')
 
   if (currentView === 'register') {
     return <HomeRegister onNavigate={(view) => setCurrentView(view)} />
+  }
+
+  if (currentView === 'detail') {
+    return (
+      <DetailPage
+        onNavigateLanding={() => setCurrentView('landing')}
+        onNavigateSimulasi={() => setCurrentView('landing')}
+        onNavigateVendor={() => setCurrentView('landing')}
+      />
+    )
   }
 
   return (
     <main className="landing-page">
       <header className="site-header">
         <a className="brand" href="#top" aria-label="SIRS.ID beranda"><span>U</span><span>M</span><span>M</span></a>
-        <button className="menu-button" type="button" aria-label="Buka menu"><span /><span /><span /></button>
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+          <button
+            type="button"
+            className="menu-button"
+            aria-label="Buka menu"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '4px' }}
+          >
+            <span /><span /><span />
+          </button>
+          <button
+            type="button"
+            id="btn-admin-detail"
+            onClick={() => setCurrentView('detail')}
+            style={{
+              padding: '6px 14px',
+              borderRadius: '20px',
+              border: '1px solid #c0283a',
+              background: 'transparent',
+              color: '#c0283a',
+              fontSize: '0.74rem',
+              fontWeight: '700',
+              cursor: 'pointer',
+              fontFamily: 'inherit',
+              transition: 'all 0.2s',
+            }}
+            onMouseEnter={(e) => { (e.target as HTMLButtonElement).style.background = '#c0283a'; (e.target as HTMLButtonElement).style.color = '#fff'; }}
+            onMouseLeave={(e) => { (e.target as HTMLButtonElement).style.background = 'transparent'; (e.target as HTMLButtonElement).style.color = '#c0283a'; }}
+          >
+            📊 Admin Detail
+          </button>
+        </div>
       </header>
       <section className="hero-section" id="top">
         <div className="eyebrow">Standar FHIR · SNOMED CT · ICD-10 · ICD-9 · IN-CBG</div>
