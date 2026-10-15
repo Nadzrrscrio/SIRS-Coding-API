@@ -1,5 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import HomeRegister from './auth/register'
+
+const SimulasiPage = lazy(() => import('./admin/simulasi'))
+const AdminLoginPage = lazy(() => import('./admin/login'))
+const VendorPage = lazy(() => import('./admin/vendor'))
 
 const modules = [
   { number: '01', icon: '▣', title: 'Keluhan', standard: 'SNOMED CT', description: 'Dari teks bebas Bahasa Indonesia menjadi keluhan SNOMED CT resmi dengan resolusi penuh terhadap adaptasi produksi.' },
@@ -12,11 +16,132 @@ const modules = [
 
 const features = ['25 koding / hari', 'Semua modul', 'Via halaman demo']
 
+function getInitialView(): 'landing' | 'register' | 'simulasi' {
+  const path = window.location.pathname.toLowerCase()
+  const hash = window.location.hash.toLowerCase()
+  if (path.includes('/admin/simulasi') || hash.includes('/admin/simulasi') || hash === '#simulasi') {
+    return 'simulasi'
+  }
+  if (
+    path.includes('/auth/register') ||
+    hash.includes('/auth/register') ||
+    path.includes('/register') ||
+    hash === '#register' ||
+    hash === '#demo'
+  ) {
+    return 'register'
+  }
+  return 'landing'
+}
+
 function App() {
-  const [currentView, setCurrentView] = useState<'landing' | 'register'>('landing')
+  const [currentView, setCurrentView] = useState<'landing' | 'register' | 'simulasi'>(getInitialView)
+  const [isAdminLogin, setIsAdminLogin] = useState<boolean>(() => {
+    const path = window.location.pathname.toLowerCase()
+    const hash = window.location.hash.toLowerCase()
+    return path.includes('/admin/login') || hash.includes('/admin/login') || hash === '#login' || hash === '#admin-login'
+  })
+  const [isVendorView, setIsVendorView] = useState<boolean>(() => {
+    const path = window.location.pathname.toLowerCase()
+    const hash = window.location.hash.toLowerCase()
+    return path.includes('/admin/vendor') || hash.includes('/admin/vendor') || hash === '#vendor' || hash === '#manajemen' || hash === '#acc-register'
+  })
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentView(getInitialView())
+    }
+    window.addEventListener('popstate', handlePopState)
+    window.addEventListener('hashchange', handlePopState)
+    return () => {
+      window.removeEventListener('popstate', handlePopState)
+      window.removeEventListener('hashchange', handlePopState)
+    }
+  }, [])
+
+  useEffect(() => {
+    const handleLoginCheck = () => {
+      const path = window.location.pathname.toLowerCase()
+      const hash = window.location.hash.toLowerCase()
+      setIsAdminLogin(path.includes('/admin/login') || hash.includes('/admin/login') || hash === '#login' || hash === '#admin-login')
+    }
+    window.addEventListener('popstate', handleLoginCheck)
+    window.addEventListener('hashchange', handleLoginCheck)
+    return () => {
+      window.removeEventListener('popstate', handleLoginCheck)
+      window.removeEventListener('hashchange', handleLoginCheck)
+    }
+  }, [])
+
+  useEffect(() => {
+    const handleVendorCheck = () => {
+      const path = window.location.pathname.toLowerCase()
+      const hash = window.location.hash.toLowerCase()
+      setIsVendorView(path.includes('/admin/vendor') || hash.includes('/admin/vendor') || hash === '#vendor' || hash === '#manajemen' || hash === '#acc-register')
+    }
+    window.addEventListener('popstate', handleVendorCheck)
+    window.addEventListener('hashchange', handleVendorCheck)
+    return () => {
+      window.removeEventListener('popstate', handleVendorCheck)
+      window.removeEventListener('hashchange', handleVendorCheck)
+    }
+  }, [])
+
+  if (isAdminLogin) {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <AdminLoginPage
+          onLoginSuccess={() => {
+            setIsAdminLogin(false)
+            setCurrentView('simulasi')
+          }}
+          onNavigateSimulasi={() => {
+            setIsAdminLogin(false)
+            setCurrentView('simulasi')
+          }}
+          onNavigateLanding={() => {
+            setIsAdminLogin(false)
+            setCurrentView('landing')
+          }}
+        />
+      </Suspense>
+    )
+  }
+
+  if (isVendorView) {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <VendorPage
+          onNavigateSimulasi={() => {
+            setIsVendorView(false)
+            setCurrentView('simulasi')
+          }}
+          onNavigateLogin={() => {
+            setIsVendorView(false)
+            setIsAdminLogin(true)
+          }}
+          onNavigateLanding={() => {
+            setIsVendorView(false)
+            setCurrentView('landing')
+          }}
+        />
+      </Suspense>
+    )
+  }
+
+  if (currentView === 'simulasi') {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <SimulasiPage
+          onNavigateRegister={() => setCurrentView('register')}
+          onNavigateLanding={() => setCurrentView('landing')}
+        />
+      </Suspense>
+    )
+  }
 
   if (currentView === 'register') {
-    return <HomeRegister onNavigate={(view) => setCurrentView(view)} />
+    return <HomeRegister onNavigate={(view) => setCurrentView(view as 'landing' | 'register')} />
   }
 
   return (
