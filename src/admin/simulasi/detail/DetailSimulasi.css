@@ -1,0 +1,960 @@
+/* ==========================================================================
+   Patient Detail Page Styles (Strictly Scoped: .detail-simulasi-page)
+   Adheres to Register, Login, and Simulasi Design Patterns:
+   - Palette: Primary Red #E20D20, Hover #C90B1B, Soft Red #FFF1F2,
+              Background #FFFFFF, Ornaments #FDF6F7, Dark Text #000000,
+              Muted Text #6D7079, Border #F0F0F0 / #F3F4F6
+   - Corner Radius: 24px cards, 14px-16px stat tiles, 20px-30px badges & pills
+   - Shadows: 0 12px 36px rgba(226, 13, 32, 0.04), 0 4px 16px rgba(0, 0, 0, 0.02)
+   - Typography: 'Inter', bold weights, uppercase eyebrow labels
+   - Responsive & Mobile-friendly
+   ========================================================================== */
+
+/* --- Scrollbar Suppression --- */
+.detail-simulasi-page,
+.detail-simulasi-page * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.detail-simulasi-page *::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+}
+
+/* --- Page Root Shell --- */
+.detail-simulasi-page {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  background: #FFFFFF;
+  color: #000000;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  padding-bottom: 60px;
+  box-sizing: border-box;
+}
+
+/* --- Background Circle Ornaments (#FDF6F7) --- */
+.detail-simulasi-page .bg-ornament {
+  position: absolute;
+  border-radius: 50%;
+  background: #FDF6F7;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.detail-simulasi-page .bg-ornament--top-left {
+  width: 320px;
+  height: 320px;
+  top: -80px;
+  left: -100px;
+}
+
+.detail-simulasi-page .bg-ornament--top-right {
+  width: 260px;
+  height: 260px;
+  top: 60px;
+  right: -90px;
+}
+
+.detail-simulasi-page .bg-ornament--middle-left {
+  width: 380px;
+  height: 380px;
+  top: 520px;
+  left: -140px;
+}
+
+.detail-simulasi-page .bg-ornament--bottom-right {
+  width: 300px;
+  height: 300px;
+  bottom: 40px;
+  right: -80px;
+}
+
+/* --- Page Container --- */
+.detail-simulasi-page .detail-container {
+  position: relative;
+  z-index: 10;
+  width: min(1280px, calc(100% - 24px));
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .detail-simulasi-page .detail-container {
+    width: min(1280px, calc(100% - 48px));
+    gap: 24px;
+  }
+}
+
+/* ==========================================================================
+   Header Component
+   ========================================================================== */
+.detail-simulasi-header {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 16px;
+}
+
+.detail-simulasi-header__top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #F0F0F0;
+  border-radius: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  backdrop-filter: blur(8px);
+}
+
+.detail-simulasi-brand {
+  display: flex;
+  align-items: center;
+}
+
+.detail-simulasi-brand__logo {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: #E20D20;
+  letter-spacing: -1px;
+}
+
+.detail-simulasi-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+}
+
+.detail-simulasi-nav__item {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6D7079;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.detail-simulasi-nav__item:hover {
+  color: #E20D20;
+  background: #FFF1F2;
+}
+
+.detail-simulasi-nav__item--active {
+  color: #FFFFFF;
+  background: #E20D20;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(226, 13, 32, 0.25);
+}
+
+.detail-simulasi-header__hero {
+  text-align: left;
+  padding: 4px 4px 0;
+}
+
+.detail-simulasi-header__eyebrow {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  color: #E20D20;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.detail-simulasi-header__title {
+  font-size: 26px;
+  font-weight: 900;
+  color: #000000;
+  margin: 0 0 6px;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+
+.detail-simulasi-header__title--accent {
+  color: #E20D20;
+}
+
+.detail-simulasi-header__subtitle {
+  font-size: 13px;
+  color: #6D7079;
+  margin: 0;
+  max-width: 680px;
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .detail-simulasi-header__title {
+    font-size: 32px;
+  }
+  .detail-simulasi-header__subtitle {
+    font-size: 14px;
+  }
+}
+
+/* ==========================================================================
+   Sub-Bar Actions (Kembali, Tutup)
+   ========================================================================== */
+.detail-sub-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 2px 4px;
+}
+
+.detail-sub-bar__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #4B5563;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 20px;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.detail-sub-bar__btn:hover {
+  color: #E20D20;
+  background: #FFF1F2;
+  border-color: #FFD1D6;
+  transform: translateY(-1px);
+}
+
+.detail-sub-bar__btn--close {
+  color: #6D7079;
+}
+
+.detail-sub-bar__btn--close:hover {
+  color: #000000;
+  background: #F3F4F6;
+  border-color: #D1D5DB;
+}
+
+/* ==========================================================================
+   Standard Card Pattern
+   ========================================================================== */
+.detail-simulasi-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid #F0F0F0;
+  box-shadow: 0 10px 30px rgba(226, 13, 32, 0.03), 0 3px 12px rgba(0, 0, 0, 0.02);
+  transition: all 0.25s ease;
+}
+
+@media (min-width: 768px) {
+  .detail-simulasi-card {
+    border-radius: 24px;
+    padding: 26px 30px;
+  }
+}
+
+.detail-simulasi-card:hover {
+  border-color: #F0D0D4;
+}
+
+/* Card Header Titles */
+.detail-card-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #6D7079;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ==========================================================================
+   Patient Info Card
+   ========================================================================== */
+.patient-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.patient-info-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.patient-info-name {
+  font-size: 22px;
+  font-weight: 900;
+  color: #000000;
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+
+.patient-info-meta {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6D7079;
+  margin: 0;
+}
+
+.patient-info-address {
+  font-size: 12px;
+  color: #8A8D95;
+  margin: 2px 0 0;
+}
+
+.patient-info-id {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: #6D7079;
+  background: #F8F9FA;
+  padding: 6px 14px;
+  border-radius: 12px;
+  border: 1px solid #ECECEC;
+  letter-spacing: 0.5px;
+}
+
+/* Stat Grid (5 columns for info & vitals) */
+.stat-grid-5 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .stat-grid-5 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .stat-grid-5 {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+}
+
+.stat-tile {
+  background: #FBFBFC;
+  border: 1px solid #F0F1F3;
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.stat-tile:hover {
+  background: #FFFFFF;
+  border-color: #E20D20;
+  box-shadow: 0 4px 14px rgba(226, 13, 32, 0.08);
+}
+
+.stat-tile__label {
+  font-size: 10px;
+  font-weight: 800;
+  color: #8A8D95;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.stat-tile__value {
+  font-size: 15px;
+  font-weight: 800;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Specific Badges */
+.badge-triase-berat {
+  display: inline-block;
+  padding: 3px 10px;
+  background: #FFF1F2;
+  color: #E20D20;
+  border: 1px solid #FFD1D6;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.badge-status-selesai {
+  display: inline-block;
+  padding: 3px 10px;
+  background: #ECFDF5;
+  color: #047857;
+  border: 1px solid #A7F3D0;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Vital Signs Card
+   ========================================================================== */
+.vital-val {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 16px;
+  font-weight: 800;
+  color: #000000;
+}
+
+.vital-unit {
+  font-size: 11px;
+  font-weight: 500;
+  color: #8A8D95;
+}
+
+/* ==========================================================================
+   Coding Workflow Card (Pengkodean Alur Klinis)
+   ========================================================================== */
+/* Step Tabs */
+.workflow-tab-bar {
+  display: flex;
+  align-items: center;
+  background: #F4F5F7;
+  border: 1px solid #ECECEC;
+  border-radius: 14px;
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.workflow-tab-btn {
+  flex: 1;
+  min-width: 120px;
+  text-align: center;
+  padding: 10px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #6D7079;
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.workflow-tab-btn:hover {
+  color: #E20D20;
+  background: rgba(226, 13, 32, 0.05);
+}
+
+.workflow-tab-btn--active {
+  color: #FFFFFF;
+  background: #E20D20;
+  box-shadow: 0 4px 12px rgba(226, 13, 32, 0.25);
+}
+
+.workflow-tab-btn--active:hover {
+  color: #FFFFFF;
+  background: #C90B1B;
+}
+
+/* Tabs Content Container */
+.workflow-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* Chips / Tag Clouds */
+.chip-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.chip-item {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #4B5563;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 24px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chip-item:hover {
+  color: #E20D20;
+  background: #FFF1F2;
+  border-color: #FFD1D6;
+  transform: translateY(-1px);
+}
+
+.chip-item--active {
+  color: #065F46;
+  background: #ECFDF5;
+  border: 1.5px solid #10B981;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+}
+
+.chip-item--active:hover {
+  color: #E20D20;
+  background: #FEF2F2;
+  border-color: #EF4444;
+}
+
+.chip-remove-icon {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+/* Custom Input Row (+ Tambah) */
+.custom-add-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+}
+
+.custom-add-input {
+  flex: 1;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #000000;
+  background: #FFFFFF;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 10px 16px;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.custom-add-input:focus {
+  border-color: #E20D20;
+  box-shadow: 0 0 0 3px rgba(226, 13, 32, 0.1);
+}
+
+.custom-add-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #E20D20;
+  background: #FFF1F2;
+  border: 1.5px solid #FFD1D6;
+  border-radius: 12px;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.custom-add-btn:hover {
+  color: #FFFFFF;
+  background: #E20D20;
+  border-color: #E20D20;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(226, 13, 32, 0.2);
+}
+
+/* Diagnosis Tab Elements */
+.diagnosis-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.diagnosis-select {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #000000;
+  background: #FFFFFF;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 10px 14px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.diagnosis-select:focus {
+  border-color: #E20D20;
+  box-shadow: 0 0 0 3px rgba(226, 13, 32, 0.1);
+}
+
+.diagnosis-input {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000;
+  background: #FFFFFF;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 12px 16px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.diagnosis-input:focus {
+  border-color: #E20D20;
+  box-shadow: 0 0 0 3px rgba(226, 13, 32, 0.1);
+}
+
+.catalog-note {
+  font-size: 12px;
+  color: #6D7079;
+  font-style: italic;
+  margin: 4px 0 0;
+}
+
+/* Mode Pengkodean */
+.mode-pengkodean-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.mode-pengkodean-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #8A8D95;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.mode-segmented-bar {
+  display: flex;
+  background: #F4F5F7;
+  border: 1px solid #ECECEC;
+  border-radius: 12px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.mode-segmented-btn {
+  flex: 1;
+  padding: 8px 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #6D7079;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mode-segmented-btn:hover {
+  color: #E20D20;
+}
+
+.mode-segmented-btn--active {
+  color: #FFFFFF;
+  background: #E20D20;
+  box-shadow: 0 2px 8px rgba(226, 13, 32, 0.25);
+}
+
+/* Primary Action Buttons (Kodekan & Simulasi Diagnosis) */
+.coding-action-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 600px) {
+  .coding-action-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.btn-kodekan {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: #FFFFFF;
+  background: #E20D20;
+  border: 1.5px solid #E20D20;
+  border-radius: 14px;
+  padding: 13px 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 20px rgba(226, 13, 32, 0.25);
+}
+
+.btn-kodekan:hover:not(:disabled) {
+  background: #C90B1B;
+  border-color: #C90B1B;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(226, 13, 32, 0.35);
+}
+
+.btn-kodekan:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-simulasi-diagnosis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #4B5563;
+  background: #FFFFFF;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 14px;
+  padding: 13px 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-simulasi-diagnosis:hover:not(:disabled) {
+  color: #E20D20;
+  background: #FFF1F2;
+  border-color: #FFD1D6;
+  transform: translateY(-1px);
+}
+
+/* Feedback alert */
+.feedback-alert {
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  animation: fadeIn 0.3s ease;
+}
+
+.feedback-alert--success {
+  background: #ECFDF5;
+  color: #065F46;
+  border: 1px solid #A7F3D0;
+}
+
+.feedback-alert--info {
+  background: #EFF6FF;
+  color: #1E40AF;
+  border: 1px solid #BFDBFE;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Riwayat Card
+   ========================================================================== */
+.riwayat-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.riwayat-tag {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  background: #F3F4F6;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 6px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==========================================================================
+   Diagnosis & Tindakan Result Card
+   ========================================================================== */
+.diag-tindakan-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .diag-tindakan-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.diag-col,
+.tindakan-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.diag-col__label,
+.tindakan-col__label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #8A8D95;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.diag-item-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.diag-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.icd10-badge {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  font-weight: 800;
+  color: #1D4ED8;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 8px;
+  padding: 3px 10px;
+}
+
+.tindakan-tags-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tindakan-badge {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4B5563;
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  padding: 5px 12px;
+}
+
+/* ==========================================================================
+   Klaim IN-CBG Card
+   ========================================================================== */
+.incbg-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .incbg-metrics-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .incbg-metrics-grid {
+    grid-template-columns: 1.4fr 1fr 1fr 1fr 1.2fr;
+    gap: 16px;
+  }
+}
+
+.incbg-tile {
+  background: #FBFBFC;
+  border: 1px solid #F0F1F3;
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.incbg-tile:hover {
+  background: #FFFFFF;
+  border-color: #E20D20;
+  box-shadow: 0 4px 14px rgba(226, 13, 32, 0.08);
+}
+
+.incbg-tile--highlight {
+  background: #FFFDF8;
+  border-color: #FDE68A;
+}
+
+.incbg-tile__label {
+  font-size: 10px;
+  font-weight: 800;
+  color: #8A8D95;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.incbg-tile__val {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 15px;
+  font-weight: 800;
+  color: #000000;
+}
+
+.incbg-tile__val--code {
+  color: #B45309;
+  background: #FEF3C7;
+  border: 1px solid #FDE68A;
+  border-radius: 8px;
+  padding: 2px 10px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.incbg-tile__val--total {
+  font-size: 18px;
+  font-weight: 900;
+  color: #E20D20;
+}

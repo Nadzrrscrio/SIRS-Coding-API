@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { Patient, RekapRumahSakit } from './types/simulasi';
 import { INITIAL_PATIENTS } from './data/mockPatients';
 import SimulasiHeader from './components/SimulasiHeader';
@@ -6,6 +6,7 @@ import RekapCards from './components/RekapCards';
 import PatientTable from './components/PatientTable';
 import AddPatientModal from './components/AddPatientModal';
 import SimulasiErrorBoundary from './components/SimulasiErrorBoundary';
+import PatientDetailPage from './detail';
 import './Simulasi.css';
 
 export interface SimulasiPageProps {
@@ -17,12 +18,44 @@ export default function SimulasiPage({
   onNavigateLanding,
 }: SimulasiPageProps) {
   const [patients, setPatients] = useState<Patient[]>(INITIAL_PATIENTS);
+  const [selectedPatient, setSelectedPatient] = useState<Patient | null>(() => {
+    const hash = window.location.hash.toLowerCase();
+    if (hash.includes('detail')) {
+      return INITIAL_PATIENTS[0];
+    }
+    return null;
+  });
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [activeTab, setActiveTab] = useState('Simulasi');
   const [lastUpdated, setLastUpdated] = useState<string>(
     new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
   );
+
+  // Sync with browser hash changes for seamless navigation
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.toLowerCase();
+      if (hash.includes('detail')) {
+        const idMatch = window.location.hash.match(/id=([^&]+)/);
+        if (idMatch && idMatch[1]) {
+          const found = patients.find((p) => p.id === idMatch[1]);
+          if (found) {
+            setSelectedPatient(found);
+            return;
+          }
+        }
+        if (!selectedPatient) {
+          setSelectedPatient(patients[0]);
+        }
+      } else if (!hash.includes('detail') && selectedPatient) {
+        setSelectedPatient(null);
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [patients, selectedPatient]);
 
   const rekap: RekapRumahSakit = useMemo(() => {
     try {
@@ -86,10 +119,39 @@ export default function SimulasiPage({
     setPatients((prev) => [newPatient, ...prev]);
   }, []);
 
+  const handleViewDetail = useCallback((patient: Patient) => {
+    setSelectedPatient(patient);
+    window.location.hash = `#simulasi-detail?id=${patient.id}`;
+  }, []);
+
+  const handleBackFromDetail = useCallback(() => {
+    setSelectedPatient(null);
+    window.location.hash = '#simulasi';
+  }, []);
+
+  const handleUpdatePatient = useCallback((updated: Patient) => {
+    setPatients((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
+    setSelectedPatient(updated);
+  }, []);
+
   const nextMrNumber = useMemo(() => {
     const num = patients.length + 1;
     return `RM-${String(num).padStart(4, '0')}`;
   }, [patients.length]);
+
+  // If a patient is selected, render the dedicated Detail Page
+  if (selectedPatient) {
+    return (
+      <SimulasiErrorBoundary>
+        <PatientDetailPage
+          patient={selectedPatient}
+          onBack={handleBackFromDetail}
+          onUpdatePatient={handleUpdatePatient}
+          onNavigateLanding={onNavigateLanding}
+        />
+      </SimulasiErrorBoundary>
+    );
+  }
 
   return (
     <SimulasiErrorBoundary>
@@ -120,6 +182,7 @@ export default function SimulasiPage({
           <PatientTable
             patients={patients}
             onAddPatient={() => setIsAddModalOpen(true)}
+            onViewDetail={handleViewDetail}
           />
 
           {/* Add Patient Modal */}
