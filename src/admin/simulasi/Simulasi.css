@@ -617,6 +617,36 @@
   text-align: right;
 }
 
+.simulasi-page .simulasi-text-center {
+  text-align: center;
+}
+
+.simulasi-page .simulasi-btn-detail {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #E20D20;
+  background: #FFF1F2;
+  border: 1px solid #FFD1D6;
+  border-radius: 20px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.simulasi-page .simulasi-btn-detail:hover {
+  background: #E20D20;
+  color: #FFFFFF;
+  border-color: #E20D20;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(226, 13, 32, 0.25);
+}
+
 .simulasi-page .simulasi-diagnosis-cell {
   max-width: 200px;
   white-space: nowrap;

@@ -4,11 +4,13 @@ import { Patient, TriasePasien } from '../types/simulasi';
 export interface PatientTableProps {
   patients: Patient[];
   onAddPatient?: () => void;
+  onViewDetail?: (patient: Patient) => void;
 }
 
 export const PatientTable: React.FC<PatientTableProps> = ({
   patients,
   onAddPatient,
+  onViewDetail,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedJalur, setSelectedJalur] = useState<string>('Semua jalur');
@@ -159,6 +161,7 @@ export const PatientTable: React.FC<PatientTableProps> = ({
                 <th>ICD-10</th>
                 <th>IN-CBG</th>
                 <th className="simulasi-text-right">TOTAL</th>
+                <th className="simulasi-text-center">AKSI</th>
               </tr>
             </thead>
             <tbody>
@@ -196,6 +199,17 @@ export const PatientTable: React.FC<PatientTableProps> = ({
                   </td>
                   <td className="simulasi-text-right simulasi-font-mono simulasi-font-bold simulasi-text-black">
                     {formatCurrency(patient.total)}
+                  </td>
+                  <td className="simulasi-text-center">
+                    <button
+                      type="button"
+                      className="simulasi-btn-detail"
+                      onClick={() => onViewDetail && onViewDetail(patient)}
+                      title={`Lihat detail pasien ${patient.nama}`}
+                    >
+                      <span>Detail</span>
+                      <span aria-hidden="true">→</span>
+                    </button>
                   </td>
                 </tr>
               ))}

@@ -19,7 +19,7 @@ const features = ['25 koding / hari', 'Semua modul', 'Via halaman demo']
 function getInitialView(): 'landing' | 'register' | 'simulasi' {
   const path = window.location.pathname.toLowerCase()
   const hash = window.location.hash.toLowerCase()
-  if (path.includes('/admin/simulasi') || hash.includes('/admin/simulasi') || hash === '#simulasi') {
+  if (path.includes('/admin/simulasi') || hash.includes('/admin/simulasi') || hash.includes('simulasi') || hash.includes('detail')) {
     return 'simulasi'
   }
   if (
