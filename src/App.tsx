@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import HomeRegister from './auth/register'
+import { lazy } from 'react'
 
 const SimulasiPage = lazy(() => import('./admin/simulasi'))
 const AdminLoginPage = lazy(() => import('./admin/login'))
