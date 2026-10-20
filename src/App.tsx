@@ -4,6 +4,14 @@
 1.2 CONST SECTION
 1.3 MAIN APP FUNCTION
   2.1  STATE DECLARATION & AUTH CHECKER
+  2.2  MAIN RETURN SECTION
+    3.1  STYLESHEET
+    3.2  MAIN VIEW COMPONENT
+      4.1  HEADER
+      4.2  HERO SECTION
+      4.3  FEATURE SECTION
+      4.4  PRICE SECTION
+      4.5  WHATSAPP SECTION
 
 ==================================================================================== */
 
